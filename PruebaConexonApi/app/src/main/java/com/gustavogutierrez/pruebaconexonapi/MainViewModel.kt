@@ -30,6 +30,10 @@ class MainViewModel(private val tasksRepository: TaskRepository) :
     val currentByPriority: Flow<Tasks>
         get() = _currentByPriority
 
+    private var _currentFinishTask: Flow<Tasks> = tasksRepository.finishTask()
+    val currentFinishTask: Flow<Tasks>
+        get() = _currentFinishTask
+
     fun fetchPendingTasks(id: String = "", pass: String = "") {
         _currentPendingTasks = tasksRepository.fetchPendingTasks(id,pass)
     }
@@ -50,8 +54,8 @@ class MainViewModel(private val tasksRepository: TaskRepository) :
         _login = tasksRepository.login(email,pass)
     }
 
-    suspend fun finishTask(id: String, tiempo: Double) {
-        tasksRepository.finishTask(id, tiempo)
+    fun finishTask(id: String, tiempo: Double) {
+        _currentFinishTask = tasksRepository.finishTask(id, tiempo)
     }
 }
 

@@ -25,7 +25,7 @@ class TaskRepository (val dataSource: RemoteDataSource) {
         return dataSource.byPriority(id,prioridad)
     }
 
-    suspend fun finishTask(id: String, tiempo: Double) {
-        dataSource.finishTask(id, tiempo)
+    fun finishTask(id: String = "", tiempo: Double = 0.0): Flow<Tasks> {
+        return dataSource.finishTask(id, tiempo)
     }
 }

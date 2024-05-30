@@ -29,8 +29,7 @@ class RemoteDataSource {
         emit(api.byPriority(id,prioridad))
     }
 
-    suspend fun finishTask(id: String, tiempo: Double) {
-        Log.i("Datasource", "finishTask: $id:$tiempo")
-        api.finishTask(id, tiempo)
+    fun finishTask(id: String = "", tiempo: Double = 0.0) = flow {
+        emit(api.finishTask(id, tiempo))
     }
 }

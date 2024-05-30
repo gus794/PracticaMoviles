@@ -2,6 +2,7 @@ package com.gustavogutierrez.pruebaconexonapi
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
@@ -43,6 +44,13 @@ class MainActivity : AppCompatActivity() {
                 TaskDetail.navigate(this, it)
             }
         )
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(idTrabajador != 0){
+            populateTasks()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -110,6 +118,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(
                     this@MainActivity, it.message, Toast.LENGTH_SHORT).show()
             }.collect()
+            binding.swipeRefresh.isRefreshing = false
         }
     }
 
@@ -130,7 +139,6 @@ class MainActivity : AppCompatActivity() {
     // Método onStart sobreescrito
     override fun onStart() {
         super.onStart()
-
         binding.mToolbar.setOnMenuItemClickListener {
             when(it.itemId){
                 R.id.opt_logout->{
@@ -138,33 +146,43 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.opt_priority->{
-                    lifecycleScope.launch {
-                        vm.orderByPriority(idTrabajador.toString())
-                        vm.currentOrderTasks.catch {
-                            Toast.makeText(
-                                this@MainActivity, it.message, Toast.LENGTH_SHORT).show()
-                        }.collect{
-                            adapter.submitList(emptyList())
-                            taskList = it
-                            adapter.submitList(taskList)
+                    if(viewStatus == ViewStatus.PENDING){
+                        lifecycleScope.launch {
+                            vm.orderByPriority(idTrabajador.toString())
+                            vm.currentOrderTasks.catch {
+                                Toast.makeText(
+                                    this@MainActivity, it.message, Toast.LENGTH_SHORT).show()
+                            }.collect{
+                                adapter.submitList(emptyList())
+                                taskList = it
+                                adapter.submitList(taskList)
+                            }
                         }
                     }
                     true
                 }
                 R.id.opt_choose_priority_1->{
-                    filterPriority("1")
+                    if(viewStatus == ViewStatus.PENDING){
+                        filterPriority("1")
+                    }
                     true
                 }
                 R.id.opt_choose_priority_2->{
-                    filterPriority("2")
+                    if(viewStatus == ViewStatus.PENDING){
+                        filterPriority("2")
+                    }
                     true
                 }
                 R.id.opt_choose_priority_3->{
-                    filterPriority("3")
+                    if(viewStatus == ViewStatus.PENDING){
+                        filterPriority("3")
+                    }
                     true
                 }
                 R.id.opt_choose_priority_4->{
-                    filterPriority("4")
+                    if(viewStatus == ViewStatus.PENDING){
+                        filterPriority("4")
+                    }
                     true
                 }
                 else -> false

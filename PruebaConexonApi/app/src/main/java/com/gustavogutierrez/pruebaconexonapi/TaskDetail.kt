@@ -18,6 +18,7 @@ import com.gustavogutierrez.pruebaconexonapi.data.RemoteDataSource
 import com.gustavogutierrez.pruebaconexonapi.data.TaskRepository
 import com.gustavogutierrez.pruebaconexonapi.databinding.ActivityTaskDetailBinding
 import com.gustavogutierrez.pruebaconexonapi.models.TasksItem
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
 
@@ -62,6 +63,13 @@ class TaskDetail : AppCompatActivity() {
             Log.i("TAG", "onCreate: $task")
 
             task?.let {
+                val background = when {
+                    task.prioridad >= 4 -> R.drawable.border_priority_4
+                    task.prioridad == 3 -> R.drawable.border_priority_3
+                    task.prioridad == 2 -> R.drawable.border_priority_2
+                    else -> R.drawable.border_priority_1
+                }
+                binding.mainBackground.setBackgroundResource(background)
                 binding.tvTiempo.text = it.tiempo.toString()
                 binding.tvDescripcion.text = it.descripcion
                 binding.tvCategoria.text = it.categoria
@@ -105,6 +113,10 @@ class TaskDetail : AppCompatActivity() {
                     if (tiempo != null) {
                         lifecycleScope.launch {
                             vm.finishTask(task.codTrabajo, tiempo)
+                            vm.currentFinishTask.catch {
+                                finish()
+                            }.collect{
+                            }
                         }
                         dialog.dismiss()
                     } else {
