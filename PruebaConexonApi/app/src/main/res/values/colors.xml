@@ -14,4 +14,8 @@
     <color name="darkColorAccent">#FF4081</color>
     <color name="darkWindowBackground">#121212</color>
     <color name="darkTextColorSecondary">#BDBDBD</color>
+    <color name="priority1">#A4FA95</color>
+    <color name="priority2">#F4FD7A</color>
+    <color name="priority3">#F8BD78</color>
+    <color name="priority4">#F15A5A</color>
 </resources>

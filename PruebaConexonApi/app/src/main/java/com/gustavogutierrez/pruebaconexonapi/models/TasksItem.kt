@@ -1,8 +1,11 @@
 package com.gustavogutierrez.pruebaconexonapi.models
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class TasksItem(
     @SerializedName("categoria")
     val categoria: String,
@@ -11,7 +14,7 @@ data class TasksItem(
     @SerializedName("descripcion")
     val descripcion: String,
     @SerializedName("fechaFin")
-    val fechaFin: Any?,
+    val fechaFin: String?,
     @SerializedName("fechaInicio")
     val fechaInicio: String,
     @SerializedName("prioridad")
@@ -20,4 +23,4 @@ data class TasksItem(
     val tiempo: Double,
     @SerializedName("trabajador")
     val trabajador: Trabajador?
-)
+):Parcelable

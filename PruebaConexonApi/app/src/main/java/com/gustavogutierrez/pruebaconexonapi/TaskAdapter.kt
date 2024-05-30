@@ -17,11 +17,21 @@ class TasksAdapter(
         private val binding = ItemTaskBinding.bind(view)
         // Método para tenlazar los datos de una palabra con la vista de la lista
         fun bind(task: TasksItem) {
-            binding.tvDesc.text = task.descripcion
+            binding.tvCodTrabajo.text = task.codTrabajo.toString()
             binding.tvCat.text = task.categoria
+            binding.tvDesc.text = task.descripcion
+            binding.tvFechaInicio.text = task.fechaInicio
             itemView.setOnClickListener {
                 listenerDetail(task)
             }
+
+            val background = when {
+                task.prioridad >= 4 -> R.drawable.border_priority_4
+                task.prioridad == 3 -> R.drawable.border_priority_3
+                task.prioridad == 2 -> R.drawable.border_priority_2
+                else -> R.drawable.border_priority_1
+            }
+            itemView.setBackgroundResource(background)
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TasksViewHolder {

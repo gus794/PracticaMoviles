@@ -3,4 +3,12 @@
     <string name="txt_opt_pending">Tareas pendientes</string>
     <string name="txt_opt_finished">Tareas finalizadas</string>
     <string name="txt_noConnection">No hay conexión a Internet</string>
+    <string name="txt_email">Email</string>
+    <string name="txt_password">Password</string>
+    <string name="txt_logout">Logout</string>
+    <string name="txt_opt_orden">Ordenar por prioridad</string>
+    <string name="txt_opt_prioridad_1">1</string>
+    <string name="txt_opt_prioridad_2">2</string>
+    <string name="txt_opt_prioridad_3">3</string>
+    <string name="txt_opt_prioridad_4">4</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.gustavogutierrez.demo07.data
+package com.gustavogutierrez.pruebaconexonapi.data
 
 import android.util.Log
 import com.gustavogutierrez.pruebaconexonapi.data.TaskApi
@@ -15,5 +15,22 @@ class RemoteDataSource {
 
     fun getFinishedTasks(id: String = "", pass: String = "") = flow {
         emit(api.getFinishedTasks(id, pass))
+    }
+
+    fun login(email: String = "", pass: String = "") = flow {
+        emit(api.login(email, pass))
+    }
+
+    fun orderByPriority(id: String = "") = flow {
+        emit(api.orderByPriority(id))
+    }
+
+    fun byPriority(id: String = "", prioridad: String = "") = flow {
+        emit(api.byPriority(id,prioridad))
+    }
+
+    suspend fun finishTask(id: String, tiempo: Double) {
+        Log.i("Datasource", "finishTask: $id:$tiempo")
+        api.finishTask(id, tiempo)
     }
 }
